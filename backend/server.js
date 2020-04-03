@@ -7,6 +7,17 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
 
+// db
+mongoose
+  .connect(process.env.DATA_BASE, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  })
+  .then(() => {
+    console.log("Data base connected");
+  });
+
 //app
 const app = express();
 const port = process.env.PORT || 300;
