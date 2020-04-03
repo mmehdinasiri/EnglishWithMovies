@@ -1,5 +1,6 @@
 exports.signup = (req, res) => {
-  res.json({ page: "signup page" });
+  const { name, email, password } = req.body;
+  res.json({ user: name, email, password });
 };
 exports.signin = (req, res) => {
   res.json({ page: "signin page" });
