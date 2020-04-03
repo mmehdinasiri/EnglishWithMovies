@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
+//route
+const home = require("./routes/home");
 
 // db
 mongoose
@@ -13,7 +15,7 @@ mongoose
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then(() => {
     console.log("Data base connected");
@@ -33,9 +35,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 //route
-app.get("/", (req, res, next) => {
-  res.json({ time: new Date().toString() });
-});
+app.use("/", home);
 
 app.listen(port, () => {
   console.log(`server is working at port ${port}`);
