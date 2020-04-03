@@ -9,10 +9,11 @@ require("dotenv").config();
 
 // db
 mongoose
-  .connect(process.env.DATA_BASE, {
+  .connect(process.env.DATA_BASE_LOCAL, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true
   })
   .then(() => {
     console.log("Data base connected");
