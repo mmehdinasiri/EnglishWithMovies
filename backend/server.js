@@ -7,7 +7,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
 //route
-const home = require("./routes/home");
+const homeRoute = require("./routes/home");
+const authRoute = require("./routes/auth");
 
 // db
 mongoose
@@ -33,9 +34,9 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === "development") {
   app.use(cors({ origin: `${process.env.CLIENT_URL}` }));
 }
-
 //route
-app.use("/", home);
+app.use("/home", homeRoute);
+app.use("/", authRoute);
 
 app.listen(port, () => {
   console.log(`server is working at port ${port}`);
