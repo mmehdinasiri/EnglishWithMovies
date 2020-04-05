@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    salt: Number,
+    salt: String,
     role: {
       type: Number,
       trim: true,
@@ -53,7 +53,7 @@ userSchema
     // generate salt
     this.salt = this.makeSalt();
     //encrypt password
-    this.hashed_password = encryptPassword(password);
+    this.hashed_password = this.encryptPassword(password);
   })
   .get(function () {
     return this._password;
@@ -61,7 +61,7 @@ userSchema
 
 userSchema.methods = {
   authenticate: function (password) {
-    return (this.hashed_password = this.encryptPassword(password));
+    return this.hashed_password === this.encryptPassword(password);
   },
   encryptPassword: function (password) {
     if (!password) return "";
