@@ -1,9 +1,11 @@
 import Layout from "../components/Layout";
-import Link from "next/link";
+import SignupComponent from "../components/signupComponent";
+
 const Signup = () => {
   return (
     <Layout>
       <h1>Signup Page</h1>
+      <SignupComponent></SignupComponent>
     </Layout>
   );
 };
