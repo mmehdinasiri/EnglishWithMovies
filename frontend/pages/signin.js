@@ -1,9 +1,10 @@
+import Layout from "../components/Layout";
 import Link from "next/link";
 const Signin = () => {
   return (
-    <React.Fragment>
-      <h1>signin page</h1>
-    </React.Fragment>
+    <Layout>
+      <h1>Signin Page</h1>
+    </Layout>
   );
 };
 export default Signin;
