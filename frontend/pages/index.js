@@ -4,7 +4,7 @@ import Link from "next/link";
 const Index = () => {
   return (
     <Layout>
-      <h1>Hello Next.js</h1>
+      <h1>H ello Next.js</h1>
     </Layout>
   );
 };

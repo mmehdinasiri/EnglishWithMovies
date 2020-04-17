@@ -1,4 +1,4 @@
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { signup } from "../actions/auth";
@@ -50,11 +50,11 @@ const SignupComponent = (props) => {
       }
     });
   };
-  const signupForm = () => {
+  const signinForm = () => {
     return (
       <Form onSubmit={submitForm}>
         <FormGroup>
-          <Label for="name">Email</Label>
+          <Label for="name">Name</Label>
           <Input
             value={name}
             type="name"
@@ -92,7 +92,7 @@ const SignupComponent = (props) => {
   };
   return (
     <>
-      {showForm && signupForm()}
+      {showForm && signinForm()}
       {showLoading()}
       {showError()}
       {showMessage()}
