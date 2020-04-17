@@ -15,7 +15,7 @@ exports.signup = (req, res) => {
       if (err) {
         return res.status(400).json({ error: err });
       }
-      res.status(200).json({ message: "User signup" });
+      res.status(200).json({ message: "User signup successfully" });
     });
   });
 };

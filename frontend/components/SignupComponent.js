@@ -1,5 +1,7 @@
 import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { signup } from "../actions/auth";
 
 const SignupComponent = (props) => {
   const [values, setValues] = useState({
@@ -11,14 +13,42 @@ const SignupComponent = (props) => {
     message: "",
     showForm: true,
   });
+  const router = useRouter();
 
   const { name, email, password, error, loading, message, showForm } = values;
   const updateValues = (name) => (e) => {
     setValues({ ...values, error: false, [name]: e.target.value });
   };
+  const showLoading = () =>
+    loading ? <div className="alert alert-info">loading ...</div> : "";
+  const showError = () =>
+    error ? <div className="alert alert-danger">{error}</div> : "";
+  const showMessage = () =>
+    message ? <div className="alert alert-success">{message}</div> : "";
   const submitForm = (e) => {
     e.preventDefault();
-    console.table(values);
+    setValues({ ...values, error: false, loading: true });
+    const user = { name, email, password };
+    signup(user).then((response) => {
+      if (response.error) {
+        setValues({ ...values, error: response.error, loading: false });
+      } else {
+        setValues({
+          ...values,
+          name: "",
+          email: "",
+          password: "",
+          error: "",
+          message: response.message,
+          showForm: false,
+          error: false,
+          loading: false,
+        });
+        setTimeout(() => {
+          router.push("/signin");
+        }, 1000);
+      }
+    });
   };
   const signupForm = () => {
     return (
@@ -56,11 +86,18 @@ const SignupComponent = (props) => {
             placeholder="password placeholder"
           />
         </FormGroup>
-        <Button>Submit</Button>
+        <Button className="mb-2">Submit</Button>
       </Form>
     );
   };
-  return <>{signupForm()}</>;
+  return (
+    <>
+      {showForm && signupForm()}
+      {showLoading()}
+      {showError()}
+      {showMessage()}
+    </>
+  );
 };
 
 export default SignupComponent;

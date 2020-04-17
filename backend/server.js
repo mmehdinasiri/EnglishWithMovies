@@ -36,7 +36,7 @@ if (process.env.NODE_ENV === "development") {
 }
 //route
 app.use("/home", homeRoute);
-app.use("/", authRoute);
+app.use("/api", authRoute);
 
 app.listen(port, () => {
   console.log(`server is working at port ${port}`);
