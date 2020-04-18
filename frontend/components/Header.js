@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { APP_NAME } from "../config";
 import { signout, isAuth } from "../actions/auth";
@@ -13,13 +13,17 @@ import {
   NavbarBrand,
 } from "reactstrap";
 
+function useMounted() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return mounted;
+}
+
 const Header = (props) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-
+  const isMounted = useMounted();
   const toggle = () => setIsOpen(!isOpen);
-
-  const isSSR = typeof window === "undefined";
 
   return (
     <div>
@@ -30,7 +34,7 @@ const Header = (props) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
-            {!isAuth() && (
+            {isMounted && !isAuth() && (
               <>
                 <NavItem>
                   <Link href="/signup">
@@ -44,7 +48,7 @@ const Header = (props) => {
                 </NavItem>
               </>
             )}
-            {isAuth() && (
+            {isMounted && isAuth() && (
               <NavItem>
                 <NavLink
                   style={{ cursor: "pointer" }}
